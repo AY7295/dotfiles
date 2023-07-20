@@ -9,3 +9,6 @@
 	graph = log --all --graph --decorate --oneline
 [init]
 	defaultBranch = main
+[user]
+	name = AY7295
+	email = Adolph7295@outlook.com
