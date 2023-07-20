@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Load Antigen (when antigen is installed using apt-get as the package manager).
 # The script for zsh-antigen is located at /usr/share/zsh-antigen/antigen.zsh.
 source /usr/share/zsh-antigen/antigen.zsh
@@ -27,7 +34,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # set zsh theme
-antigen theme af-magic
+antigen theme romkatv/powerlevel10k
 
 # apply antigen
 antigen apply
@@ -56,3 +63,6 @@ alias j=z
 
 # transfer function
 transfer(){ if [ $# -eq 0 ];then echo "No arguments specified.\nUsage:\n transfer <file|directory>\n ... | transfer <file_name>" >&2;return 1;fi;if tty -s;then file="$1";file_name=$(basename "$file");if [ ! -e "$file" ];then echo "$file: No such file or directory" >&2;return 1;fi;if [ -d "$file" ];then file_name="$file_name.zip";(cd "$file"&&zip -r -q - .)|curl --progress-bar --upload-file "-" "https://packets.zip/$file_name"|tee /dev/null;echo;else cat "$file"|curl --progress-bar --upload-file "-" "https://packets.zip/$file_name"|tee /dev/null;echo;fi;else file_name=$1;curl --progress-bar --upload-file "-" "https://packets.zip/$file_name"|tee /dev/null;echo;fi;}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
